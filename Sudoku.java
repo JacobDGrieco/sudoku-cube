@@ -1,3 +1,4 @@
+import java.awt.Color;
 import java.awt.GridLayout;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -15,6 +16,7 @@ public class Sudoku {
             frame.setVisible(true);
 
             JPanel panel = new JPanel();
+            panel.setBackground(Color.DARK_GRAY);
             frame.add(panel);
             frame.setContentPane(panel);
 
@@ -22,6 +24,7 @@ public class Sudoku {
             panel.add(cube);
 
             JPanel controls = new JPanel(new GridLayout(2, 3));
+            controls.setBackground(Color.DARK_GRAY);
             panel.add(controls);
 
             JComboBox<String> sideList = new JComboBox<>(new String[] {
@@ -65,7 +68,7 @@ public class Sudoku {
 
             JPanel options = new JPanel(new GridLayout(2, 1));
             panel.add(options);
-            JButton monochrome = new JButton("Monochrome");
+            JButton monochrome = new JButton("Colors");
             monochrome.addActionListener(e -> cube.monochrome());
             options.add(monochrome);
             JButton blank = new JButton("Blanks");

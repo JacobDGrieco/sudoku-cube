@@ -9,6 +9,7 @@ public class Cube extends JPanel {
 
     public Cube() {
         setLayout(new GridBagLayout());
+        setBackground(Color.DARK_GRAY);
 
         CubeSide leftSide = new CubeSide("Left", Color.ORANGE);
         CubeSide backSide = new CubeSide("Back", Color.BLUE, Color.WHITE);
