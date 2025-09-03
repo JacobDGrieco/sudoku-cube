@@ -61,4 +61,11 @@ public class CubeSide extends JPanel {
             }
         }
     }
+
+    public void blankedOut(boolean isBlankedOut) {
+        for (int i = 0; i < 9; i++) {
+            SideSquare panel = (SideSquare) getComponent(i);
+            panel.blankedOut(isBlankedOut);
+        }
+    }
 }

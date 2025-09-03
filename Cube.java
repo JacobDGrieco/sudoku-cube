@@ -5,6 +5,7 @@ import javax.swing.JPanel;
 
 public class Cube extends JPanel {
     private boolean isMonochrome = false;
+    private boolean isBlankedOut = false;
 
     public Cube() {
         setLayout(new GridBagLayout());
@@ -361,6 +362,15 @@ public class Cube extends JPanel {
         for (int i = 0; i < 6; i++) {
             CubeSide side = (CubeSide) getComponent(i);
             side.monochrome(isMonochrome);
+        }
+    }
+
+    public void blankedOut() {
+        isBlankedOut = !isBlankedOut;
+        System.out.println("Blanks for days");
+        for (int i = 0; i < 6; i++) {
+            CubeSide side = (CubeSide) getComponent(i);
+            side.blankedOut(isBlankedOut);
         }
     }
 }

@@ -63,9 +63,14 @@ public class Sudoku {
             });
             controls.add(goForShuffle);
 
+            JPanel options = new JPanel(new GridLayout(2, 1));
+            panel.add(options);
             JButton monochrome = new JButton("Monochrome");
             monochrome.addActionListener(e -> cube.monochrome());
-            panel.add(monochrome);
+            options.add(monochrome);
+            JButton blank = new JButton("Blanks");
+            blank.addActionListener(e -> cube.blankedOut());
+            options.add(blank);
         });
     }
 }
