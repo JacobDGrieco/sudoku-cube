@@ -50,11 +50,11 @@ public class CubeSide extends JPanel {
         revalidate();
     }
 
-    public void monochrome(boolean isMonochrome) {
+    public void colors(boolean isColored) {
         for (int i = 0; i < 9; i++) {
             SideSquare panel = (SideSquare) getComponent(i);
-            panel.monochrome(isMonochrome);
-            if (isMonochrome) {
+            panel.colors(isColored);
+            if (isColored) {
                 setBorder(BorderFactory.createLineBorder(borderColor, 2));
             } else {
                 setBorder(BorderFactory.createLineBorder(Color.BLACK, 2));

@@ -4,7 +4,7 @@ import java.awt.GridBagLayout;
 import javax.swing.JPanel;
 
 public class Cube extends JPanel {
-    private boolean isMonochrome = false;
+    private boolean isColored = false;
     private boolean isBlankedOut = false;
 
     public Cube() {
@@ -357,12 +357,12 @@ public class Cube extends JPanel {
         return sides;
     }
 
-    public void monochrome() {
-        isMonochrome = !isMonochrome;
-        System.out.println(isMonochrome ? "Sucking the joy out of life" : "Applying a splash of color to the cube");
+    public void colors() {
+        isColored = !isColored;
+        System.out.println(isColored ? "Sucking the joy out of life" : "Applying a splash of color to the cube");
         for (int i = 0; i < 6; i++) {
             CubeSide side = (CubeSide) getComponent(i);
-            side.monochrome(isMonochrome);
+            side.colors(isColored);
         }
     }
 

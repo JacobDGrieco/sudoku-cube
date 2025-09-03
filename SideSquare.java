@@ -23,8 +23,8 @@ public class SideSquare extends JPanel {
         add(label);
     }
 
-    public void monochrome(boolean isMonochrome) {
-        if (isMonochrome) {
+    public void colors(boolean isColored) {
+        if (isColored) {
             setBackground(Color.LIGHT_GRAY);
             getComponent(0).setForeground(Color.DARK_GRAY);
         } else {

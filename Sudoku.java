@@ -68,9 +68,9 @@ public class Sudoku {
 
             JPanel options = new JPanel(new GridLayout(2, 1));
             panel.add(options);
-            JButton monochrome = new JButton("Colors");
-            monochrome.addActionListener(e -> cube.monochrome());
-            options.add(monochrome);
+            JButton colors = new JButton("Colors");
+            colors.addActionListener(e -> cube.colors());
+            options.add(colors);
             JButton blank = new JButton("Blanks");
             blank.addActionListener(e -> cube.blankedOut());
             options.add(blank);
