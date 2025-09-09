@@ -32,7 +32,8 @@ public class Sudoku {
             });
             controls.add(sideList);
             JComboBox<String> rotationList = new JComboBox<>(new String[] {
-                    "Side Clockwise", "Side CounterClockwise", "Middle Clockwise", "Middle CounterClockwise"
+                    "Side Clockwise", "Side CounterClockwise", "Middle Col Up", "Middle Col Down", "Middle Row Left",
+                    "Middle Row Right"
             });
             controls.add(rotationList);
             JButton goForRotation = new JButton("Rotate");
@@ -45,11 +46,17 @@ public class Sudoku {
                     case "Side CounterClockwise":
                         cube.rotateSidesCounterClockwise(side);
                         break;
-                    case "Middle Clockwise":
-                        cube.rotateMiddleUp(side);
+                    case "Middle Col Up":
+                        cube.rotateMiddleColUp(side);
                         break;
-                    case "Middle CounterClockwise":
-                        cube.rotateMiddleDown(side);
+                    case "Middle Col Downe":
+                        cube.rotateMiddleColDown(side);
+                        break;
+                    case "Middle Row Left":
+                        cube.rotateMiddleRowLeft(side);
+                        break;
+                    case "Middle Row Right":
+                        cube.rotateMiddleRowRight(side);
                         break;
                 }
             });

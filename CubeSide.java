@@ -1,24 +1,39 @@
+import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import javax.swing.BorderFactory;
+import javax.swing.BoxLayout;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 public class CubeSide extends JPanel {
-    private Color borderColor;
+    private final Color borderColor;
+    private JPanel grid;
 
     public CubeSide(String sideName, Color tileColor, Color textColor) {
         this.borderColor = tileColor;
         setName(sideName);
-        setLayout(new GridLayout(3, 3));
+        setBackground(Color.DARK_GRAY);
+        setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 
         // Create border for differentiating the sides
         setBorder(BorderFactory.createLineBorder(tileColor, 2));
+
+        JLabel title = new JLabel(sideName);
+        title.setForeground(Color.WHITE);
+        add(title);
+
+        grid = new JPanel(new GridLayout(3, 3));
+        grid.setOpaque(true);
+        grid.setBackground(Color.DARK_GRAY); // optional
+        add(grid, BorderLayout.CENTER);
 
         // Initialize the table with empty values
         int count = 1;
         for (int i = 0; i < 3; i++) {
             for (int j = 0; j < 3; j++) {
-                add(new SideSquare(count++ + "", tileColor, textColor));
+                grid.add(new SideSquare(count++ + "", tileColor, textColor));
             }
         }
     }
@@ -32,17 +47,17 @@ public class CubeSide extends JPanel {
         int count = 0;
         for (int i = 0; i < 3; i++) {
             for (int j = 0; j < 3; j++) {
-                data[i][j] = getComponent(count++);
+                data[i][j] = grid.getComponent(count++);
             }
         }
         return data;
     }
 
     public void rotateData(Object[][] newData) {
-        removeAll();
+        grid.removeAll();
         for (int i = 0; i < 3; i++) {
             for (int j = 0; j < 3; j++) {
-                add((JPanel) newData[i][j]);
+                grid.add((JPanel) newData[i][j]);
             }
         }
 
@@ -52,19 +67,19 @@ public class CubeSide extends JPanel {
 
     public void colors(boolean isColored) {
         for (int i = 0; i < 9; i++) {
-            SideSquare panel = (SideSquare) getComponent(i);
+            SideSquare panel = (SideSquare) grid.getComponent(i);
             panel.colors(isColored);
             if (isColored) {
-                setBorder(BorderFactory.createLineBorder(borderColor, 2));
+                grid.setBorder(BorderFactory.createLineBorder(borderColor, 2));
             } else {
-                setBorder(BorderFactory.createLineBorder(Color.BLACK, 2));
+                grid.setBorder(BorderFactory.createLineBorder(Color.BLACK, 2));
             }
         }
     }
 
     public void blankedOut(boolean isBlankedOut) {
         for (int i = 0; i < 9; i++) {
-            SideSquare panel = (SideSquare) getComponent(i);
+            SideSquare panel = (SideSquare) grid.getComponent(i);
             panel.blankedOut(isBlankedOut);
         }
     }

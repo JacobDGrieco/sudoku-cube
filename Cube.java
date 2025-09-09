@@ -144,20 +144,20 @@ public class Cube extends JPanel {
         baseAdj.rotateData(newData);
     }
 
-    public void rotateMiddleUp(CubeSide side) {
-        System.out.println("Rotating " + side.getName() + "'s middle up");
+    public void rotateMiddleColUp(CubeSide side) {
+        System.out.println("Rotating " + side.getName() + "'s middle column up");
         Object[][] newData;
 
         // Rotate the middle columns
-        CubeSide topAdj = getSidesMiddles(side)[0];
-        CubeSide backAdj = getSidesMiddles(side)[1];
-        CubeSide baseAdj = getSidesMiddles(side)[2];
+        CubeSide topAdj = getSidesMiddleCols(side)[0];
+        CubeSide backAdj = getSidesMiddleCols(side)[1];
+        CubeSide baseAdj = getSidesMiddleCols(side)[2];
         Object[][] frontData = side.getData();
         Object[][] topAdjData = topAdj.getData();
         Object[][] backAdjData = backAdj.getData();
         Object[][] baseAdjData = baseAdj.getData();
 
-        // Side -> Top
+        // Front -> Top
         newData = clone3DArray(topAdjData);
         for (int i = 0; i < 3; i++) {
             newData[i][1] = frontData[i][1];
@@ -186,21 +186,20 @@ public class Cube extends JPanel {
         side.rotateData(newData);
     }
 
-    public void rotateMiddleDown(CubeSide side) {
-        System.out.println("Rotating " + side.getName() + "'s middle down");
+    public void rotateMiddleColDown(CubeSide side) {
+        System.out.println("Rotating " + side.getName() + "'s middle column down");
         Object[][] newData;
 
         // Rotate the adjacent sides' edges
-        // This is a simplified version and assumes a specific cube orientation
-        CubeSide topAdj = getSidesMiddles(side)[0];
-        CubeSide backAdj = getSidesMiddles(side)[1];
-        CubeSide baseAdj = getSidesMiddles(side)[2];
+        CubeSide topAdj = getSidesMiddleCols(side)[0];
+        CubeSide backAdj = getSidesMiddleCols(side)[1];
+        CubeSide baseAdj = getSidesMiddleCols(side)[2];
         Object[][] frontData = side.getData();
         Object[][] topAdjData = topAdj.getData();
         Object[][] backAdjData = backAdj.getData();
         Object[][] baseAdjData = baseAdj.getData();
 
-        // Side -> Base
+        // Front -> Base
         newData = clone3DArray(baseAdjData);
         for (int i = 0; i < 3; i++) {
             newData[i][1] = frontData[i][1];
@@ -229,13 +228,96 @@ public class Cube extends JPanel {
         side.rotateData(newData);
     }
 
+    public void rotateMiddleRowLeft(CubeSide side) {
+        System.out.println("Rotating " + side.getName() + "'s middle row left");
+        Object[][] newData;
+
+        // Rotate the middle rows
+        CubeSide rightAdj = getSidesMiddleRows(side)[0];
+        CubeSide backAdj = getSidesMiddleRows(side)[1];
+        CubeSide leftAdj = getSidesMiddleRows(side)[2];
+        Object[][] frontData = side.getData();
+        Object[][] rightAdjData = rightAdj.getData();
+        Object[][] backAdjData = backAdj.getData();
+        Object[][] leftAdjData = leftAdj.getData();
+
+        // Front -> Left
+        newData = clone3DArray(leftAdjData);
+        for (int i = 0; i < 3; i++) {
+            newData[1][i] = frontData[1][i];
+        }
+        leftAdj.rotateData(newData);
+
+        // Left -> Back
+        newData = clone3DArray(backAdjData);
+        for (int i = 0; i < 3; i++) {
+            newData[1][i] = leftAdjData[1][i];
+        }
+        backAdj.rotateData(newData);
+
+        // Back -> Right
+        newData = clone3DArray(rightAdjData);
+        for (int i = 0; i < 3; i++) {
+            newData[1][i] = backAdjData[1][i];
+        }
+        rightAdj.rotateData(newData);
+
+        // Right -> Front
+        newData = clone3DArray(frontData);
+        for (int i = 0; i < 3; i++) {
+            newData[1][i] = rightAdjData[1][i];
+        }
+        side.rotateData(newData);
+    }
+
+    public void rotateMiddleRowRight(CubeSide side) {
+        System.out.println("Rotating " + side.getName() + "'s middle row right");
+        Object[][] newData;
+
+        // Rotate the middle rows
+        CubeSide rightAdj = getSidesMiddleRows(side)[0];
+        CubeSide backAdj = getSidesMiddleRows(side)[1];
+        CubeSide leftAdj = getSidesMiddleRows(side)[2];
+        Object[][] frontData = side.getData();
+        Object[][] rightAdjData = rightAdj.getData();
+        Object[][] backAdjData = backAdj.getData();
+        Object[][] leftAdjData = leftAdj.getData();
+
+        // Front -> Right
+        newData = clone3DArray(rightAdjData);
+        for (int i = 0; i < 3; i++) {
+            newData[1][i] = frontData[1][i];
+        }
+        rightAdj.rotateData(newData);
+
+        // Right -> Back
+        newData = clone3DArray(backAdjData);
+        for (int i = 0; i < 3; i++) {
+            newData[1][i] = rightAdjData[1][i];
+        }
+        backAdj.rotateData(newData);
+
+        // Back -> Left
+        newData = clone3DArray(leftAdjData);
+        for (int i = 0; i < 3; i++) {
+            newData[1][i] = backAdjData[1][i];
+        }
+        leftAdj.rotateData(newData);
+
+        // Left -> Front
+        newData = clone3DArray(frontData);
+        for (int i = 0; i < 3; i++) {
+            newData[1][i] = leftAdjData[1][i];
+        }
+        side.rotateData(newData);
+    }
+
     public void shuffle(int rotations) {
         System.out.println("\nHitting the SpongeBob " + rotations + " times");
 
         for (int i = 0; i < rotations; i++) {
-            int randomSide = (int) (Math.random() * 6);
-            int randomRotation = (int) (Math.random() * 4);
-            CubeSide side = (CubeSide) getComponent(randomSide);
+            CubeSide side = (CubeSide) getComponent((int) (Math.random() * 6));
+            int randomRotation = (int) (Math.random() * 6);
             switch (randomRotation) {
                 case 0:
                     rotateSidesClockwise(side);
@@ -244,10 +326,16 @@ public class Cube extends JPanel {
                     rotateSidesCounterClockwise(side);
                     break;
                 case 2:
-                    rotateMiddleUp(side);
+                    rotateMiddleColUp(side);
                     break;
                 case 3:
-                    rotateMiddleDown(side);
+                    rotateMiddleColDown(side);
+                    break;
+                case 4:
+                    rotateMiddleRowLeft(side);
+                    break;
+                case 5:
+                    rotateMiddleRowRight(side);
                     break;
             }
         }
@@ -312,7 +400,7 @@ public class Cube extends JPanel {
         return sides;
     }
 
-    private CubeSide[] getSidesMiddles(CubeSide side) {
+    private CubeSide[] getSidesMiddleCols(CubeSide side) {
         CubeSide[] sides = new CubeSide[3];
 
         CubeSide left = (CubeSide) getComponent(0); // Left
@@ -352,6 +440,51 @@ public class Cube extends JPanel {
                 sides[0] = back;
                 sides[1] = base;
                 sides[2] = front;
+                break;
+        }
+        return sides;
+    }
+
+    private CubeSide[] getSidesMiddleRows(CubeSide side) {
+        CubeSide[] sides = new CubeSide[3];
+
+        CubeSide left = (CubeSide) getComponent(0); // Left
+        CubeSide back = (CubeSide) getComponent(1); // Back
+        CubeSide base = (CubeSide) getComponent(2); // Base
+        CubeSide front = (CubeSide) getComponent(3); // Front
+        CubeSide right = (CubeSide) getComponent(4); // Right
+        CubeSide top = (CubeSide) getComponent(5); // Top
+
+        switch (side.getName()) {
+            case "Left":
+                sides[0] = front;
+                sides[1] = right;
+                sides[2] = back;
+                break;
+            case "Back":
+                sides[0] = left;
+                sides[1] = front;
+                sides[2] = right;
+                break;
+            case "Base":
+                sides[0] = right;
+                sides[1] = top;
+                sides[2] = left;
+                break;
+            case "Front":
+                sides[0] = right;
+                sides[1] = back;
+                sides[2] = left;
+                break;
+            case "Right":
+                sides[0] = back;
+                sides[1] = left;
+                sides[2] = front;
+                break;
+            case "Top":
+                sides[0] = right;
+                sides[1] = base;
+                sides[2] = left;
                 break;
         }
         return sides;
